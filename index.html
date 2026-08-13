@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Set Ranker — DJ sets, ranked</title>
+<meta name="description" content="A ranked, filterable catalogue of DJ sets — by energy, time of day and overall rating.">
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#results">Skip to results</a>
+
+<header class="site-header">
+  <div class="wrap site-header__inner">
+    <div class="site-title">
+      <h1>Set&nbsp;Ranker</h1>
+      <p class="site-tagline">DJ sets, ranked and filed.</p>
+    </div>
+    <button type="button" id="theme-toggle" class="btn btn--ghost" aria-live="polite">
+      <span aria-hidden="true">◐</span> <span id="theme-label">Theme</span>
+    </button>
+  </div>
+</header>
+
+<!-- Shown only while data/sets.json still contains placeholder rows. -->
+<div class="wrap">
+  <p class="banner" id="placeholder-banner" hidden>
+    <strong>Sample data.</strong>
+    These sets are placeholders so the site can be tried out — the ratings are
+    invented. Replace <code>data/sets.json</code> with your Notion export and this
+    notice disappears on its own.
+  </p>
+</div>
+
+<div class="wrap layout">
+
+  <!-- ------------------------------------------------------------------ -->
+  <!-- Filter rail. Contents are generated from js/schema.js at runtime.  -->
+  <!-- ------------------------------------------------------------------ -->
+  <aside class="rail" aria-labelledby="rail-heading">
+    <div class="rail__head">
+      <h2 id="rail-heading">Filters</h2>
+      <button type="button" id="clear-all" class="btn btn--link" hidden>Clear all</button>
+    </div>
+    <form id="filter-form" class="rail__body">
+      <!-- populated by js/filters.js -->
+    </form>
+  </aside>
+
+  <main class="results" id="results">
+
+    <div class="toolbar">
+      <div class="field field--search">
+        <label class="field__label" for="search">Search</label>
+        <input type="search" id="search" class="input" autocomplete="off"
+               placeholder="Artist, set, event, best moments…">
+      </div>
+      <div class="field field--sort">
+        <label class="field__label" for="sort">Sort by</label>
+        <select id="sort" class="input"><!-- populated by js/main.js --></select>
+      </div>
+    </div>
+
+    <div class="resultbar">
+      <p class="count" id="count" role="status" aria-live="polite"></p>
+      <ul class="chips chips--active" id="active-filters" aria-label="Active filters"></ul>
+    </div>
+
+    <!-- Grid of set cards -->
+    <ul class="grid" id="grid"></ul>
+
+    <!-- Shown when filters match nothing -->
+    <div class="notice" id="empty" hidden>
+      <h3>No sets match those filters</h3>
+      <p id="empty-detail"></p>
+      <button type="button" class="btn" data-action="clear-all">Clear all filters</button>
+    </div>
+
+    <!-- Shown if data/sets.json cannot be loaded or parsed -->
+    <div class="notice notice--error" id="error" hidden>
+      <h3>Couldn't load the set data</h3>
+      <p id="error-detail"></p>
+      <p class="notice__hint">
+        If you opened this file directly from Finder, that's the cause — browsers
+        block reading local data files that way. Run <code>./serve.sh</code> and
+        open <a href="http://localhost:8000">localhost:8000</a> instead.
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Every ranking here is one person's opinion, offered without apology.</p>
+  </div>
+</footer>
+
+<!-- ---------------------------------------------------------------- -->
+<!-- Detail view. Native <dialog> so Escape-to-close and focus return -->
+<!-- come from the browser rather than from hand-written key handling. -->
+<!-- ---------------------------------------------------------------- -->
+<dialog class="sheet" id="detail">
+  <form method="dialog" class="sheet__close-form">
+    <button class="sheet__close" aria-label="Close">✕</button>
+  </form>
+  <div class="sheet__body" id="detail-body"></div>
+</dialog>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

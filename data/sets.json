@@ -1,0 +1,128 @@
+[
+  {
+    "id": "salute-salute-vail-apres-ski-raw-cuts",
+    "setName": "salute | Vail Après Ski | RAW CUTS",
+    "artist": "Salute",
+    "rating": 4,
+    "energy": 5,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Good vibes set for working. Mid-to-low energy, good for starting the day or locking in on a project anytime.",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-08-04",
+    "url": "https://www.youtube.com/watch?v=ulhdSOiTzx8"
+  },
+  {
+    "id": "mph-mph-live-in-tokyo-japan-ukf-on-air",
+    "setName": "MPH - Live in Tokyo, Japan | UKF On Air",
+    "artist": "MPH",
+    "rating": 9,
+    "energy": 9,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "",
+    "bestMoments": "Beat at 30:00",
+    "referredBy": "",
+    "date": "2026-08-03",
+    "url": "https://www.youtube.com/watch?v=KEszhQvHH-s"
+  },
+  {
+    "id": "mixed-rufus-du-sol-fred-again-lost-frequencies-mountain-deep",
+    "setName": "RÜFÜS DU SOL • Fred again.. • Lost Frequencies | Mountain Deep House Mix",
+    "artist": "Mixed",
+    "rating": 2,
+    "energy": 2,
+    "timeOfDay": [
+      "Morning"
+    ],
+    "status": "Listened",
+    "description": "",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-08-05",
+    "url": "https://www.youtube.com/watch?v=CSigjEr_Elc"
+  },
+  {
+    "id": "fred-again-fred-again-green-room-set-maka-s-birthday-rome",
+    "setName": "Fred again.. - Green Room Set (Maka’s Birthday, Rome)",
+    "artist": "Fred again..",
+    "rating": 9,
+    "energy": 8,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-08-06",
+    "url": "https://www.youtube.com/watch?v=o_N5JQYHJXk&t=844s"
+  },
+  {
+    "id": "chris-stussy-chris-stussy-hudson-river-boat-party-new-york-f",
+    "setName": "Chris Stussy @ Hudson River Boat Party, New York for Teksupport",
+    "artist": "Chris Stussy",
+    "rating": 5,
+    "energy": 4,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Could def work for morning",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-08-10",
+    "url": "https://www.youtube.com/watch?v=cNjzfent-8g&t=36s"
+  },
+  {
+    "id": "cloonee-prospa-cloonee-b2b-prospa-live-at-destino-ibiza",
+    "setName": "Cloonee B2B Prospa - Live at Destino, Ibiza",
+    "artist": "Cloonee, Prospa",
+    "rating": 6,
+    "energy": 5,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Overall good, summer vibes. Not too much energy, not too little",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-08-11",
+    "url": "https://www.youtube.com/watch?v=UE6wjxvMRz0"
+  },
+  {
+    "id": "fifi-fifi-dj-set-elevator-music",
+    "setName": "FIFI (DJ Set) - Elevator Music",
+    "artist": "Fifi",
+    "rating": 8,
+    "energy": null,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "Perfect set length, she has major aura, and samples victory lap. Check, check, and check",
+    "bestMoments": "Beat switch around 40:00",
+    "referredBy": "",
+    "date": "2026-07-22",
+    "url": "https://www.youtube.com/watch?v=NVzyEb7-Vdw"
+  },
+  {
+    "id": "fred-again-fred-again-hydefm-twitch-stream-in-san-francisco",
+    "setName": "Fred again.. HydeFM twitch stream in San Francisco",
+    "artist": "Fred again..",
+    "rating": null,
+    "energy": null,
+    "timeOfDay": [],
+    "status": "Sampled",
+    "description": "",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "",
+    "url": "https://www.youtube.com/watch?v=j9EkAYdouyM"
+  }
+]
