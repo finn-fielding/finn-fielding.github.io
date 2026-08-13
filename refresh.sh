@@ -85,6 +85,12 @@ python3 tools/import_notion_csv.py "$csv"
 echo
 python3 tools/validate_data.py
 
+# The link-preview image quotes the number of sets, so keep it in step.
+echo
+python3 tools/make_og_image.py || echo "(carrying on — the preview image is optional)"
+
 echo
 echo "Done. Refresh the browser to see it."
 echo "(If the site isn't running: ./serve.sh)"
+echo
+echo "To publish:  git add -A && git commit -m 'Update sets' && git push"

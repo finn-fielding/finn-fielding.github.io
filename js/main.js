@@ -12,7 +12,9 @@ import {
 import {
   buildFilterUI, syncControls, activeFilters, hasFilters, clearAll, clearOne,
 } from './filters.js';
-import { renderGrid, renderCount, renderActive, detailHTML } from './render.js';
+import { renderGrid, renderCount, renderActive, renderStats, detailHTML } from './render.js';
+import { computeStats } from './stats.js';
+import { fieldByKey } from './schema.js';
 
 const $ = (id) => document.getElementById(id);
 
@@ -29,6 +31,7 @@ const el = {
   errorDetail: $('error-detail'),
   clearAll: $('clear-all'),
   banner: $('placeholder-banner'),
+  stats: $('stats'),
   detail: $('detail'),
   detailBody: $('detail-body'),
   themeBtn: $('theme-toggle'),
@@ -72,6 +75,8 @@ const CHIP_SEP = '|';
 
 function stateToHash() {
   const p = new URLSearchParams();
+  // `set` comes first so a link to one set reads clearly in a chat window.
+  if (state.open) p.set('set', state.open);
   if (state.q) p.set('q', state.q);
   if (state.sort && state.sort !== DEFAULT_SORT) p.set('sort', state.sort);
 
@@ -92,6 +97,7 @@ function stateToHash() {
 function hashToState() {
   const p = new URLSearchParams(location.hash.replace(/^#/, ''));
 
+  state.open = p.get('set') || '';
   state.q = p.get('q') || '';
   const sort = p.get('sort');
   state.sort = SORTS.some((s) => s.id === sort) ? sort : DEFAULT_SORT;
@@ -134,6 +140,16 @@ function render() {
   renderGrid(el.grid, shown);
   renderCount(el.count, shown.length, total);
 
+  // The panel describes what's on screen, so filtering to "Afternoon" also
+  // answers "and how do those rate?".
+  renderStats(el.stats, computeStats(shown), {
+    ratingMax: fieldByKey('rating')?.max ?? 10,
+    energyMax: fieldByKey('energy')?.max ?? 10,
+    caption: shown.length === total
+      ? `Across all ${total} ${total === 1 ? 'set' : 'sets'}`
+      : `Across the ${shown.length} ${shown.length === 1 ? 'set' : 'sets'} shown`,
+  });
+
   const active = activeFilters(state);
   renderActive(el.active, active);
   el.clearAll.hidden = active.length === 0;
@@ -161,11 +177,52 @@ function changed() {
 
 function openDetail(id) {
   const set = findSet(id);
-  if (!set) return;
+  if (!set) {
+    // A link to a set that no longer exists — don't leave the dead id in the URL.
+    if (state.open) {
+      state.open = '';
+      writeHash();
+    }
+    return;
+  }
   el.detailBody.innerHTML = detailHTML(set);
   el.detail.setAttribute('aria-labelledby', 'detail-title');
-  el.detail.showModal(); // Escape-to-close and focus return come free with <dialog>
+  state.open = set.id;
+  writeHash();
+  if (!el.detail.open) el.detail.showModal(); // Escape and focus return come free with <dialog>
 }
+
+/** Bring the dialog into line with whatever the URL says. */
+function syncDetail() {
+  if (state.open) openDetail(state.open);
+  else if (el.detail.open) el.detail.close();
+}
+
+async function copyText(text) {
+  try {
+    await navigator.clipboard.writeText(text);
+    return true;
+  } catch {
+    // Older or locked-down browsers: fall back to a hidden field and the
+    // deprecated-but-still-working copy command.
+    try {
+      const field = document.createElement('textarea');
+      field.value = text;
+      field.setAttribute('readonly', '');
+      field.style.cssText = 'position:fixed;top:-1000px;opacity:0';
+      document.body.append(field);
+      field.select();
+      const ok = document.execCommand('copy');
+      field.remove();
+      return ok;
+    } catch {
+      return false;
+    }
+  }
+}
+
+const linkToSet = (id) =>
+  `${location.origin}${location.pathname}#set=${encodeURIComponent(id)}`;
 
 // ---------------------------------------------------------------------------
 // Boot
@@ -221,10 +278,33 @@ async function boot() {
     changed();
   });
 
-  el.grid.addEventListener('click', (e) => {
-    const btn = e.target.closest('[data-open]');
-    if (btn) openDetail(btn.dataset.open);
+  // Cards and the stats panel both offer "open this set".
+  for (const region of [el.grid, el.stats]) {
+    region.addEventListener('click', (e) => {
+      const btn = e.target.closest('[data-open]');
+      if (btn) openDetail(btn.dataset.open);
+    });
+  }
+
+  // Closing the dialog — by Escape, the ✕, or the backdrop — drops `set` from
+  // the URL, so the address bar always matches what's on screen.
+  el.detail.addEventListener('close', () => {
+    if (!state.open) return;
+    state.open = '';
+    writeHash();
   });
+
+  el.detail.addEventListener('click', async (e) => {
+    const btn = e.target.closest('[data-copy-link]');
+    if (!btn) return;
+    const original = 'Copy link to this set';
+    const ok = await copyText(linkToSet(btn.dataset.copyLink));
+    btn.textContent = ok ? 'Link copied' : 'Couldn’t copy — select the address bar';
+    setTimeout(() => { btn.textContent = original; }, 1800);
+  });
+
+  // A link someone was sent: #set=... opens that set straight away.
+  syncDetail();
 
   el.active.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-clear]');
@@ -256,6 +336,7 @@ async function boot() {
     el.sort.value = state.sort;
     syncControls(el.form, state);
     render();
+    syncDetail();
   });
 }
 

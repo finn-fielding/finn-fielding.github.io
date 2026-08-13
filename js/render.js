@@ -49,6 +49,38 @@ export function formatDate(value, { long = false } = {}) {
 
 const formatRating = (n) => (Number.isFinite(n) ? (Number.isInteger(n) ? String(n) : n.toFixed(1)) : '');
 
+/**
+ * Work out where a link goes from the URL itself, so the button can say "Watch
+ * on YouTube" rather than a vague "Listen". No extra column needed in Notion —
+ * the information is already in the link.
+ */
+const PLATFORMS = [
+  [/(?:^|\.)youtube\.com|youtu\.be/i, 'YouTube', 'Watch on YouTube'],
+  [/soundcloud\.com/i, 'SoundCloud', 'Play on SoundCloud'],
+  [/mixcloud\.com/i, 'Mixcloud', 'Play on Mixcloud'],
+  [/open\.spotify\.com|spotify\.com/i, 'Spotify', 'Play on Spotify'],
+  [/twitch\.tv/i, 'Twitch', 'Watch on Twitch'],
+  [/bandcamp\.com/i, 'Bandcamp', 'Play on Bandcamp'],
+  [/vimeo\.com/i, 'Vimeo', 'Watch on Vimeo'],
+];
+
+export function platformOf(url) {
+  const link = String(url ?? '');
+  if (!link) return { name: '', cta: '' };
+  for (const [pattern, name, cta] of PLATFORMS) {
+    if (pattern.test(link)) return { name, cta };
+  }
+  return { name: '', cta: 'Listen' };
+}
+
+/** The primary action on a set: go and actually hear it. */
+function listenButton(url) {
+  if (!url) return '';
+  const { cta } = platformOf(url);
+  return `<a class="btn btn--primary btn--listen" href="${esc(url)}"
+             target="_blank" rel="noopener noreferrer">${esc(cta)} <span aria-hidden="true">↗</span></a>`;
+}
+
 // ---------------------------------------------------------------------------
 // Pieces
 // ---------------------------------------------------------------------------
@@ -99,12 +131,7 @@ function cardHTML(set) {
   const ratingField = fieldByKey('rating');
 
   const meta = formatDate(set.date);
-
-  const listen = set.url
-    ? `<a class="btn btn--listen" href="${esc(set.url)}" target="_blank" rel="noopener noreferrer">
-         Listen <span aria-hidden="true">↗</span>
-       </a>`
-    : '';
+  const listen = listenButton(set.url);
 
   const rating = Number.isFinite(set.rating)
     ? `<div class="rating">
@@ -205,11 +232,7 @@ export function detailHTML(set) {
        </div>`
     : '';
 
-  const listen = set.url
-    ? `<a class="btn btn--listen" href="${esc(set.url)}" target="_blank" rel="noopener noreferrer">
-         Listen <span aria-hidden="true">↗</span>
-       </a>`
-    : '';
+  const listen = listenButton(set.url);
 
   return `
     <div class="sheet__top">
@@ -226,7 +249,98 @@ export function detailHTML(set) {
           <div class="drow__v">${r.html}</div>
         </div>`).join('')}
     </div>
-    ${listen ? `<div class="sheet__actions">${listen}</div>` : ''}`;
+    <div class="sheet__actions">
+      ${listen}
+      <button type="button" class="btn" data-copy-link="${esc(set.id)}">Copy link to this set</button>
+    </div>`;
+}
+
+// ---------------------------------------------------------------------------
+// Stats panel
+// ---------------------------------------------------------------------------
+
+/**
+ * A compact summary of whichever sets are currently on screen, so filtering to
+ * "Afternoon" answers "and how do those rate on average?".
+ *
+ * Deliberately restrained: with a small collection, a ten-bucket histogram of
+ * energy would be mostly empty bars pretending to be information. Every number
+ * shown here is also printed as text beside its bar, so nothing depends on
+ * reading a bar length.
+ */
+export function renderStats(el, stats, { ratingMax = 10, energyMax = 10, caption = '' } = {}) {
+  if (!stats.total) {
+    el.hidden = true;
+    el.innerHTML = '';
+    return;
+  }
+  el.hidden = false;
+
+  const num = (value, max) =>
+    value == null
+      ? '<span class="tile__val tile__val--none">—</span>'
+      : `<span class="tile__val">${esc(value.toFixed(1))}</span><span class="tile__max">/${esc(max)}</span>`;
+
+  const tiles = `
+    <li class="tile">
+      <span class="tile__label">${stats.total === 1 ? 'Set' : 'Sets'}</span>
+      <span class="tile__val">${esc(stats.total)}</span>
+    </li>
+    <li class="tile">
+      <span class="tile__label">Average rating</span>
+      ${num(stats.avgRating, ratingMax)}
+    </li>
+    <li class="tile">
+      <span class="tile__label">Average energy</span>
+      ${num(stats.avgEnergy, energyMax)}
+    </li>
+    <li class="tile">
+      <span class="tile__label">${stats.artistCount === 1 ? 'Artist' : 'Artists'}</span>
+      <span class="tile__val">${esc(stats.artistCount)}</span>
+    </li>`;
+
+  const peak = Math.max(1, ...stats.byTimeOfDay.map((b) => b.count));
+  const bars = stats.byTimeOfDay
+    .map((b) => {
+      const glyph = TIME_OF_DAY_GLYPH[b.value]
+        ? `<span class="tag__glyph" aria-hidden="true">${esc(TIME_OF_DAY_GLYPH[b.value])}</span>`
+        : '';
+      const avg = b.avgRating == null ? 'unrated' : `avg ${b.avgRating.toFixed(1)}`;
+      return `
+        <li class="bar">
+          <span class="bar__label">${glyph}${esc(b.value)}</span>
+          <span class="bar__track">
+            <span class="bar__fill" style="width:${((b.count / peak) * 100).toFixed(1)}%"></span>
+          </span>
+          <span class="bar__val">${esc(b.count)} · ${esc(avg)}</span>
+        </li>`;
+    })
+    .join('');
+
+  const notes = [];
+  if (stats.topArtist && stats.topArtist.count > 1) {
+    notes.push(`Most logged: <strong>${esc(stats.topArtist.name)}</strong> (${esc(stats.topArtist.count)} sets)`);
+  }
+  if (stats.best) {
+    notes.push(
+      `Top rated: <button type="button" class="linkish" data-open="${esc(stats.best.id)}">` +
+      `${esc(stats.best.setName)}</button> (${esc(formatRating(stats.best.rating))}/${esc(ratingMax)})`
+    );
+  }
+
+  el.innerHTML = `
+    <div class="stats__head">
+      <h2 id="stats-heading">At a glance</h2>
+      ${caption ? `<p class="stats__caption">${esc(caption)}</p>` : ''}
+    </div>
+    <ul class="tiles">${tiles}</ul>
+    ${stats.byTimeOfDay.length
+      ? `<div class="statchart">
+           <h3 class="statchart__title">Sets by time of day</h3>
+           <ul class="bars">${bars}</ul>
+         </div>`
+      : ''}
+    ${notes.length ? `<p class="stats__notes">${notes.join(' &nbsp;·&nbsp; ')}</p>` : ''}`;
 }
 
 // ---------------------------------------------------------------------------

@@ -14,6 +14,7 @@ export const state = {
   chips: {},   // field key -> Set of selected values
   select: {},  // field key -> single selected value ('' means any)
   min: {},     // field key -> numeric floor (0 means any)
+  open: '',    // id of the set whose detail view is open, so it can be linked to
 };
 
 let sets = [];

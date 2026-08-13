@@ -32,6 +32,7 @@
   --accent-track:    #cde2fb;   /* energy meter empty (blue 100) */
   --accent-ink:      #1c5cab;   /* accent used behind text (blue 550) */
   --accent-wash:     rgba(42, 120, 214, 0.08);
+  --accent-solid:    #1c5cab;   /* filled button — a darker step so white text clears contrast */
 
   --danger:          #d03b3b;   /* reserved status colour, errors only */
 
@@ -62,6 +63,7 @@
     --accent-track: #184f95;
     --accent-ink:   #86b6ef;
     --accent-wash:  rgba(57, 135, 229, 0.14);
+    --accent-solid: #256abf;
     --danger:       #e66767;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
   }
@@ -81,6 +83,7 @@
   --accent-track: #184f95;
   --accent-ink:   #86b6ef;
   --accent-wash:  rgba(57, 135, 229, 0.14);
+  --accent-solid: #256abf;
   --danger:       #e66767;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
 }
@@ -252,6 +255,29 @@ code {
 }
 .btn:hover { background: var(--surface-sunk); }
 .btn--ghost { background: transparent; }
+
+/* The filled button is reserved for the one action that matters most: going and
+   actually hearing the set. Nothing else on the page competes with it. */
+.btn--primary {
+  background: var(--accent-solid);
+  border-color: var(--accent-solid);
+  color: #ffffff;
+  font-weight: 600;
+}
+.btn--primary:hover { filter: brightness(1.1); background: var(--accent-solid); }
+
+/* A button that reads as a link — used inside prose in the stats panel. */
+.linkish {
+  font: inherit;
+  color: var(--accent-ink);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.linkish:hover { color: var(--ink); }
 .btn--link {
   border: 0; background: none; padding: 2px 0;
   color: var(--accent-ink);
@@ -349,6 +375,95 @@ code {
   padding: 0;
 }
 .achip__x:hover { background: var(--line-strong); color: var(--ink); }
+
+/* --- Stats panel -------------------------------------------------------- */
+.stats {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+.stats__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-bottom: 14px;
+}
+.stats__head h2 {
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+.stats__caption { font-size: 12px; color: var(--ink-muted); }
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 12px;
+}
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 12px;
+  background: var(--surface-sunk);
+  border-radius: var(--radius-sm);
+}
+.tile__label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ink-muted);
+}
+/* Proportional figures, not tabular: these sit alone rather than in a column. */
+.tile__val { font-size: 25px; font-weight: 600; line-height: 1.1; letter-spacing: -0.02em; }
+.tile__val--none { color: var(--ink-muted); }
+.tile__max { font-size: 12px; color: var(--ink-muted); }
+
+.statchart { margin-top: 18px; }
+.statchart__title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+  margin-bottom: 9px;
+}
+.bars { display: grid; gap: 7px; }
+.bar {
+  display: grid;
+  grid-template-columns: 96px minmax(60px, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+}
+.bar__label { color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bar__track {
+  background: var(--surface-sunk);
+  border-radius: 2px;
+  height: 10px;
+  overflow: hidden;
+}
+/* Grows from the left baseline; the far end is the rounded data-end. */
+.bar__fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 0 4px 4px 0;
+  min-width: 3px;
+}
+.bar__val { color: var(--ink-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.stats__notes {
+  margin-top: 16px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line);
+  font-size: 13px;
+  color: var(--ink-2);
+}
+.stats__notes strong { color: var(--ink); font-weight: 600; }
 
 /* --- Card grid ---------------------------------------------------------- */
 .grid {
@@ -554,6 +669,10 @@ code {
   .site-header__inner { padding-block: 14px; }
   .drow { grid-template-columns: 1fr; gap: 3px; }
   .sheet__body { padding: 18px 16px 22px; }
+  .stats { padding: 14px; }
+  .bar { grid-template-columns: 78px minmax(36px, 1fr) auto; gap: 8px; font-size: 11px; }
+  .tile__val { font-size: 22px; }
+  .sheet__actions { flex-wrap: wrap; }
 }
 
 @media (prefers-reduced-motion: reduce) {
