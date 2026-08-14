@@ -34,8 +34,9 @@ and it's also exactly how the site behaves once it's published.
   Chips within one group widen (Morning *or* Afternoon); separate groups narrow.
 - **Sort** eight ways — rating, energy, listen date, artist, set name.
 - **See stats** for whatever is currently filtered in: set count, average rating,
-  average energy, artist count, and a breakdown by time of day. Filter to
-  Afternoon and the averages follow.
+  average energy, artist count, and a breakdown by time of day showing each
+  period's set count alongside its average rating *and* average energy, both
+  named. Filter to Afternoon and the averages follow.
 - **Go and listen.** Each set's main button names its platform — "Watch on
   YouTube", "Play on SoundCloud" — worked out from the link itself, so there's no
   extra Notion column to keep up. YouTube, SoundCloud, Mixcloud, Spotify, Twitch,
@@ -57,6 +58,58 @@ server, so an unfurler can't see which set you meant. Giving each set its own
 preview would mean generating a separate HTML page per set — a build step, which
 this project deliberately doesn't have. The link still opens the right set for
 anyone who clicks it.
+
+---
+
+## Look and feel
+
+The site is a night palette and **opens dark for everyone**, whatever their computer
+is set to. The theme button cycles Dark → Light → Auto ("auto" follows their OS), and
+the choice is remembered.
+
+Four colours, each doing a job. Nothing is coloured for decoration:
+
+| Colour | Where | Why |
+|---|---|---|
+| Cyan | energy meter, stats bars | the one thing encoding a magnitude |
+| Amber | time-of-day chips for daytime sets | sun |
+| Violet | time-of-day chips for night sets | night sky |
+| Magenta | the Listen button | an action, never data |
+
+Everything else is ink and neutral greys, which is what keeps the coloured parts
+readable. Text never wears a data colour — a chip's hue rides its border and its
+little glyph, and the label stays in normal ink, because a coloured word is harder to
+read than a plain one sitting next to a coloured mark.
+
+Which periods count as day or night lives in `TIME_OF_DAY_BAND` in `js/schema.js`.
+Move one between bands there; no CSS to touch. `Anytime` is deliberately neutral.
+
+**Why two bands and not a colour per time of day.** Nine distinct hues was tried and
+measured, and it failed: Morning and Afternoon came out at ΔE 5.2 apart under *normal*
+colour vision — far below the readable floor — so nobody could have told them apart.
+About three hues is the practical ceiling when any two can appear side by side. The
+chip still prints its exact period, so no detail is lost.
+
+### Re-checking the colours
+
+Every value was measured rather than picked by eye, using the palette validator from
+Claude's dataviz skill. It needs a JavaScript engine, and macOS has one built in, so
+there's nothing to install:
+
+```sh
+JSC=/System/Library/Frameworks/JavaScriptCore.framework/Versions/Current/Helpers/jsc
+V=/path/to/dataviz/scripts/validate_palette.js
+"$JSC" -e "import('$V').then(m => {
+  const r = m.validate(['#f0b429','#9b8cfa'], {mode:'dark', surface:'#141826', pairs:'all'});
+  print('ok = ' + r.ok);
+  r.report.forEach(x => print(x.join(' :: ')));
+})"
+```
+
+The recorded results are in a comment at the top of `css/style.css`, including one
+deliberate, explained departure from the guidance. If you change a colour, re-run this
+and update that comment — the point of writing the numbers down is that the next change
+can be checked against them.
 
 ---
 

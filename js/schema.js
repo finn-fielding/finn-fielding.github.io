@@ -89,6 +89,32 @@ export const TIME_OF_DAY_GLYPH = {
   'After hours': '◌',
 };
 
+/**
+ * Which colour band each time of day belongs to: amber for daytime listening,
+ * violet for night. Move a period between bands by editing this — no CSS needed.
+ *
+ * Why two bands and not a colour per period: nine distinct hues was measured and
+ * failed. Several pairs came out so close that nobody could tell them apart —
+ * not a colour-blindness edge case, just too many hues competing in one space.
+ * Two well-separated bands are what the measurements allow, and the chip still
+ * prints its exact period, so nothing is lost.
+ *
+ * Anything not listed here — including 'Anytime', deliberately — renders neutral.
+ */
+export const TIME_OF_DAY_BAND = {
+  'Sunrise': 'day',
+  'Morning': 'day',
+  'Afternoon': 'day',
+  'Sunset': 'night',
+  'Evening': 'night',
+  'Peak time': 'night',
+  'Late night': 'night',
+  'After hours': 'night',
+};
+
+/** '' for values with no band, which the CSS treats as neutral. */
+export const bandOf = (value) => TIME_OF_DAY_BAND[value] ?? '';
+
 /** Sort options. Each names a sortable field above and a direction. */
 export const SORTS = [
   { id: 'rating-desc',  label: 'Highest rated',   key: 'rating',   dir: -1 },

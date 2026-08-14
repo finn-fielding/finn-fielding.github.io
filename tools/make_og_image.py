@@ -25,13 +25,18 @@ OUT = ROOT / "og.png"
 
 WIDTH, HEIGHT = 1200, 630          # the size every unfurler expects (1.91:1)
 
-# Same palette as the site's dark theme, so a shared link looks like the page.
-SURFACE = (0.102, 0.102, 0.098)    # #1a1a19
-INK = (1, 1, 1)                    # #ffffff
-INK_2 = (0.765, 0.761, 0.718)      # #c3c2b7
-INK_MUTED = (0.537, 0.529, 0.506)  # #898781
-ACCENT = (0.224, 0.529, 0.898)     # #3987e5
-ACCENT_TRACK = (0.094, 0.310, 0.584)  # #184f95
+# Same palette as the site's dark theme, so a shared link looks like the page
+# it opens. Values mirror the tokens in css/style.css.
+SURFACE = (0.039, 0.047, 0.078)    # #0a0c14  page
+CARD = (0.078, 0.094, 0.149)       # #141826  card surface
+INK = (0.949, 0.957, 0.984)        # #f2f4fb
+INK_2 = (0.663, 0.698, 0.800)      # #a9b2cc
+INK_MUTED = (0.510, 0.549, 0.659)  # #828ca8
+ACCENT = (0.243, 0.788, 0.878)     # #3ec9e0  cyan — energy
+ACCENT_TRACK = (0.165, 0.357, 0.455)  # #2a5b74
+DAY = (0.941, 0.706, 0.161)        # #f0b429  amber — daytime
+NIGHT = (0.608, 0.549, 0.980)      # #9b8cfa  violet — night
+ACTION = (0.765, 0.227, 0.525)     # #c33a86  magenta — action
 
 
 def esc(text):
@@ -94,10 +99,17 @@ def main():
     # Bottom-left origin, so y counts up from the bottom of the image.
     lines = [
         rgb(SURFACE), "0 0 {} {} re f".format(WIDTH, HEIGHT),
-        rgb(ACCENT), "0 {} {} 8 re f".format(HEIGHT - 8, WIDTH),
+    ]
 
-        rgb(INK), "BT /F1 92 Tf 80 408 Td ({}) Tj ET".format(esc("Set Ranker")),
-        rgb(INK_2), "BT /F2 34 Tf 80 344 Td ({}) Tj ET".format(esc("DJ sets, ranked and filed.")),
+    # The header hairline, in three solid segments. The site draws this as a real
+    # gradient; PDF gradients need shading dictionaries, and three bands read the
+    # same at this size.
+    for colour, x, w in ((NIGHT, 0, 470), (ACCENT, 470, 330), (ACTION, 800, 400)):
+        lines += [rgb(colour), "{} {} {} 8 re f".format(x, HEIGHT - 8, w)]
+
+    lines += [
+        rgb(INK), "BT /F1 92 Tf 80 440 Td ({}) Tj ET".format(esc("Set Ranker")),
+        rgb(INK_2), "BT /F2 34 Tf 80 380 Td ({}) Tj ET".format(esc("DJ sets, ranked and filed.")),
     ]
 
     # A 10-segment energy meter, the site's one recurring motif. Six filled is
@@ -105,7 +117,15 @@ def main():
     seg_w, gap, filled = 84, 10, 6
     for i in range(10):
         x = 80 + i * (seg_w + gap)
-        lines += [rgb(ACCENT if i < filled else ACCENT_TRACK), "{} 190 {} 14 re f".format(x, seg_w)]
+        lines += [rgb(ACCENT if i < filled else ACCENT_TRACK), "{} 280 {} 14 re f".format(x, seg_w)]
+
+    # Two swatches standing for the day/night bands, so the preview shows the
+    # palette the page actually uses rather than one accent colour.
+    for colour, label, x in ((DAY, "Daytime", 80), (NIGHT, "Night", 300)):
+        lines += [
+            rgb(colour), "{} 196 18 18 re f".format(x),
+            rgb(INK_2), "BT /F2 26 Tf {} 200 Td ({}) Tj ET".format(x + 30, esc(label)),
+        ]
 
     caption = "{} sets - {} artists".format(total, artists)
     if top is not None:

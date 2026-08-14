@@ -42,17 +42,25 @@ const el = {
 // Theme: auto (follow the OS) -> light -> dark -> auto
 // ---------------------------------------------------------------------------
 
+// Keep THEME_KEY in step with the small inline script in index.html, which
+// applies the saved theme before first paint to avoid a flash of the wrong one.
 const THEME_KEY = 'set-ranker-theme';
-const THEMES = ['auto', 'light', 'dark'];
+
+// Dark leads: the site is designed for it, and it's what a visitor should meet
+// first whatever their OS says. 'auto' is last for anyone who wants to defer to
+// their system — and unlike the other two it is a real attribute value, because
+// the light tokens hang off [data-theme="auto"] inside a prefers-light query.
+const THEMES = ['dark', 'light', 'auto'];
+const DEFAULT_THEME = 'dark';
 
 function applyTheme(name) {
-  document.documentElement.dataset.theme = name === 'auto' ? '' : name;
+  document.documentElement.dataset.theme = name;
   el.themeLabel.textContent = name[0].toUpperCase() + name.slice(1);
   el.themeBtn.setAttribute('aria-label', `Colour theme: ${name}. Click to change.`);
 }
 
 function initTheme() {
-  let current = 'auto';
+  let current = DEFAULT_THEME;
   try {
     const saved = localStorage.getItem(THEME_KEY);
     if (THEMES.includes(saved)) current = saved;

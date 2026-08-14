@@ -22,13 +22,18 @@ export function computeStats(sets) {
   const energies = numbers(sets, 'energy');
 
   // --- per time of day ---
+  // Rating and energy are averaged separately, because a set can have one and
+  // not the other, and both are reported so neither figure is ambiguous.
   const buckets = new Map();
   for (const set of sets) {
     for (const value of set.timeOfDay ?? []) {
-      if (!buckets.has(value)) buckets.set(value, { value, count: 0, ratings: [] });
+      if (!buckets.has(value)) {
+        buckets.set(value, { value, count: 0, ratings: [], energies: [] });
+      }
       const bucket = buckets.get(value);
       bucket.count += 1;
       if (Number.isFinite(set.rating)) bucket.ratings.push(set.rating);
+      if (Number.isFinite(set.energy)) bucket.energies.push(set.energy);
     }
   }
   const rank = (value) => {
@@ -37,7 +42,12 @@ export function computeStats(sets) {
   };
   const byTimeOfDay = [...buckets.values()]
     .sort((a, b) => rank(a.value) - rank(b.value) || a.value.localeCompare(b.value))
-    .map((b) => ({ value: b.value, count: b.count, avgRating: mean(b.ratings) }));
+    .map((b) => ({
+      value: b.value,
+      count: b.count,
+      avgRating: mean(b.ratings),
+      avgEnergy: mean(b.energies),
+    }));
 
   // --- artists ---
   const artistCounts = new Map();

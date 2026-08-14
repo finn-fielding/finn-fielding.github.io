@@ -15,6 +15,7 @@ import {
   searchableFields,
   TIME_OF_DAY_ORDER,
   TIME_OF_DAY_GLYPH,
+  bandOf,
 } from './schema.js';
 
 const NUMERIC_TYPES = new Set(['rating', 'scale', 'duration']);
@@ -193,7 +194,10 @@ function chipGroup(field, items, state, changed) {
 
     if (field.key === 'timeOfDay' && TIME_OF_DAY_GLYPH[value]) {
       const g = document.createElement('span');
-      g.className = 'chip__glyph';
+      // Band colour on the glyph, so day/night reads the same way here as on the
+      // cards. Selection itself stays cyan across every filter group.
+      const band = bandOf(value);
+      g.className = band ? `chip__glyph chip__glyph--${band}` : 'chip__glyph';
       g.setAttribute('aria-hidden', 'true');
       g.textContent = TIME_OF_DAY_GLYPH[value];
       face.append(g);

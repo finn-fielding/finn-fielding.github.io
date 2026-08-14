@@ -1,91 +1,152 @@
 /* ==========================================================================
    Set Ranker — styles
    --------------------------------------------------------------------------
-   Colour is deliberately restrained: ink and neutrals do almost all the work,
-   with a single blue accent reserved for the one thing that encodes a value
-   (the energy meter). Time-of-day and tag chips are neutral on purpose — they
-   always carry their own text label, so they don't need a hue to be legible,
-   and a dozen competing badge colours would make the grid unreadable.
+   NIGHT PALETTE. Dark is the default and the mode this was designed in; light
+   is a properly re-stepped alternative, not an inversion.
 
-   All colour values are taken from a pre-validated palette (contrast and
-   colour-blindness checked in both light and dark) rather than picked by eye.
-   Dark mode is a selected set of steps, not an automatic inversion.
+   Four hues, each earning its place — colour follows meaning, never decoration:
+
+     cyan     the energy meter and the stats bars. The one magnitude encoding.
+     amber    time-of-day chips for daytime listening.
+     violet   time-of-day chips for night listening.
+     magenta  the Listen button. An action, never data.
+
+   Everything else is ink and neutral, which is what keeps the coloured things
+   legible.
+
+   Time of day gets two bands rather than a colour per period. That isn't
+   restraint for its own sake — a nine-hue "sky cycle" was measured and failed:
+   Morning #79c9f2 against Afternoon #3ec9e0 came out at ΔE 5.2 under *normal*
+   colour vision, well under the floor of 15, meaning nobody could tell them
+   apart. Roughly three hues is the ceiling when any two can sit side by side.
+   The chip's text label carries the exact period; the hue carries the band.
+
+   Every value below was measured, not eyeballed, with the dataviz skill's
+   validator (run through the JavaScriptCore engine built into macOS — see the
+   README for the command). Recorded results:
+
+     dark  ink 16.1:1 · ink-2 8.4:1 · ink-muted 5.3:1 · cyan 8.9:1
+           amber 9.5:1 · violet 6.3:1 · magenta 3.6:1, white on it 4.9:1
+     light ink 18.3:1 · ink-2 8.1:1 · ink-muted 5.0:1 · cyan 4.5:1
+           amber 5.7:1 · violet 6.4:1 · white on magenta 6.5:1
+     amber vs violet (the only two hues that are peers): CVD ΔE 31.1 dark /
+           28.2 light, normal-vision ΔE 31.5 / 29.2 — clear of every gate.
+     filled vs empty meter segment: 3.74:1 dark, 3.07:1 light.
+
+   One deliberate deviation: the bright cyan and amber sit above the dark-mode
+   lightness band (OKLCH L 0.48–0.67). That band exists so several series read
+   as equal weight in one chart; only one data hue is ever on screen here, so it
+   has no peer to balance against, and the luminous step is what stops the night
+   surface looking dead.
    ========================================================================== */
 
-/* --- Tokens: light ------------------------------------------------------- */
+/* --- Tokens: dark (the default) ------------------------------------------ */
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
-  --page:            #f9f9f7;   /* page plane */
-  --surface:         #fcfcfb;   /* cards, rail, dialog */
-  --surface-sunk:    #f0efec;   /* chips, inputs, meter track backdrop */
+  --page:            #0a0c14;   /* page plane — deep indigo, not neutral black */
+  --surface:         #141826;   /* cards, rail, dialog */
+  --surface-sunk:    #1e2334;   /* chips, inputs, meter track backdrop */
 
-  --ink:             #0b0b0b;   /* primary text */
-  --ink-2:           #52514e;   /* secondary text */
-  --ink-muted:       #898781;   /* labels, metadata */
+  --ink:             #f2f4fb;   /* primary text */
+  --ink-2:           #a9b2cc;   /* secondary text */
+  --ink-muted:       #828ca8;   /* labels, metadata */
 
-  --line:            #e1e0d9;   /* hairline rules */
-  --line-strong:     #c3c2b7;   /* stronger dividers */
-  --ring:            rgba(11, 11, 11, 0.10);
+  --line:            #232a3d;   /* hairline rules */
+  --line-strong:     #323b52;   /* stronger dividers */
 
-  --accent:          #2a78d6;   /* energy meter fill  (blue 450) */
-  --accent-track:    #cde2fb;   /* energy meter empty (blue 100) */
-  --accent-ink:      #1c5cab;   /* accent used behind text (blue 550) */
-  --accent-wash:     rgba(42, 120, 214, 0.08);
-  --accent-solid:    #1c5cab;   /* filled button — a darker step so white text clears contrast */
+  --accent:          #3ec9e0;   /* cyan — energy meter fill, stats bars */
+  --accent-track:    #2a5b74;   /* the meter's empty segments */
+  --accent-ink:      #6fd3e6;   /* cyan behind text: links */
+  --accent-wash:     rgba(62, 201, 224, 0.12);
 
-  --danger:          #d03b3b;   /* reserved status colour, errors only */
+  --action:          #c33a86;   /* magenta — the Listen button only */
+  --action-hover:    #d44795;
+  --action-ink:      #ffffff;
+
+  --day:             #f0b429;   /* amber — daytime time-of-day chips */
+  --day-wash:        rgba(240, 180, 41, 0.13);
+  --night:           #9b8cfa;   /* violet — night time-of-day chips */
+  --night-wash:      rgba(155, 140, 250, 0.15);
+
+  --danger:          #ef7d86;   /* reserved status colour, errors only */
 
   --radius:          10px;
   --radius-sm:       6px;
   --gap:             2px;       /* the surface gap between touching marks */
 
-  --shadow: 0 1px 2px rgba(11, 11, 11, 0.04), 0 4px 12px rgba(11, 11, 11, 0.04);
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 8px 24px rgba(0, 0, 0, 0.35);
 }
 
-/* --- Tokens: dark -------------------------------------------------------- */
-/* Declared twice on purpose: the media query follows the OS setting, the
-   attribute selector follows the on-page toggle, and the toggle must be able
-   to win in both directions. */
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --page:         #0d0d0d;
-    --surface:      #1a1a19;
-    --surface-sunk: #262624;
-    --ink:          #ffffff;
-    --ink-2:        #c3c2b7;
-    --ink-muted:    #898781;
-    --line:         #2c2c2a;
-    --line-strong:  #383835;
-    --ring:         rgba(255, 255, 255, 0.10);
-    --accent:       #3987e5;
-    --accent-track: #184f95;
-    --accent-ink:   #86b6ef;
-    --accent-wash:  rgba(57, 135, 229, 0.14);
-    --accent-solid: #256abf;
-    --danger:       #e66767;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
-  }
+/* --- Tokens: light ------------------------------------------------------- */
+/* Declared twice: once for an explicit choice of light, once for "auto" on a
+   machine set to light. Dark needs no such block — it is the base above. */
+:root[data-theme="light"] {
+  color-scheme: light;
+
+  --page:            #f4f5f8;
+  --surface:         #fbfbfd;
+  --surface-sunk:    #eceff5;
+
+  --ink:             #0d1020;
+  --ink-2:           #464d64;
+  --ink-muted:       #666d84;
+
+  --line:            #dfe3ec;
+  --line-strong:     #c3c9d8;
+
+  --accent:          #0e7f96;
+  --accent-track:    #a8dae4;
+  --accent-ink:      #0b6b80;
+  --accent-wash:     rgba(14, 127, 150, 0.09);
+
+  --action:          #a82a70;
+  --action-hover:    #8f2260;
+  --action-ink:      #ffffff;
+
+  --day:             #8a5a00;
+  --day-wash:        rgba(138, 90, 0, 0.10);
+  --night:           #5b46c9;
+  --night-wash:      rgba(91, 70, 201, 0.10);
+
+  --danger:          #c0303a;
+
+  --shadow: 0 1px 2px rgba(13, 16, 32, 0.05), 0 4px 12px rgba(13, 16, 32, 0.05);
 }
-:root[data-theme="dark"] {
-  color-scheme: dark;
-  --page:         #0d0d0d;
-  --surface:      #1a1a19;
-  --surface-sunk: #262624;
-  --ink:          #ffffff;
-  --ink-2:        #c3c2b7;
-  --ink-muted:    #898781;
-  --line:         #2c2c2a;
-  --line-strong:  #383835;
-  --ring:         rgba(255, 255, 255, 0.10);
-  --accent:       #3987e5;
-  --accent-track: #184f95;
-  --accent-ink:   #86b6ef;
-  --accent-wash:  rgba(57, 135, 229, 0.14);
-  --accent-solid: #256abf;
-  --danger:       #e66767;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
+
+@media (prefers-color-scheme: light) {
+  :root[data-theme="auto"] {
+    color-scheme: light;
+
+    --page:            #f4f5f8;
+    --surface:         #fbfbfd;
+    --surface-sunk:    #eceff5;
+
+    --ink:             #0d1020;
+    --ink-2:           #464d64;
+    --ink-muted:       #666d84;
+
+    --line:            #dfe3ec;
+    --line-strong:     #c3c9d8;
+
+    --accent:          #0e7f96;
+    --accent-track:    #a8dae4;
+    --accent-ink:      #0b6b80;
+    --accent-wash:     rgba(14, 127, 150, 0.09);
+
+    --action:          #a82a70;
+    --action-hover:    #8f2260;
+    --action-ink:      #ffffff;
+
+    --day:             #8a5a00;
+    --day-wash:        rgba(138, 90, 0, 0.10);
+    --night:           #5b46c9;
+    --night-wash:      rgba(91, 70, 201, 0.10);
+
+    --danger:          #c0303a;
+
+    --shadow: 0 1px 2px rgba(13, 16, 32, 0.05), 0 4px 12px rgba(13, 16, 32, 0.05);
+  }
 }
 
 /* --- Base --------------------------------------------------------------- */
@@ -142,9 +203,24 @@ code {
 }
 
 /* --- Header / footer ---------------------------------------------------- */
+/* Two very low-alpha washes give the header a night-sky cast — violet on the
+   left, cyan on the right — without becoming a decorative gradient. The hairline
+   across the top runs through all three accents, which is the only place the
+   full palette appears together. */
 .site-header {
+  position: relative;
   border-bottom: 1px solid var(--line);
-  background: var(--surface);
+  background:
+    radial-gradient(120% 200% at 10% 0%, var(--night-wash) 0%, transparent 62%),
+    radial-gradient(100% 180% at 90% 0%, var(--accent-wash) 0%, transparent 58%),
+    var(--surface);
+}
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--night) 0%, var(--accent) 48%, var(--action) 100%);
 }
 .site-header__inner {
   display: flex;
@@ -259,12 +335,15 @@ code {
 /* The filled button is reserved for the one action that matters most: going and
    actually hearing the set. Nothing else on the page competes with it. */
 .btn--primary {
-  background: var(--accent-solid);
-  border-color: var(--accent-solid);
-  color: #ffffff;
+  background: var(--action);
+  border-color: var(--action);
+  color: var(--action-ink);
   font-weight: 600;
 }
-.btn--primary:hover { filter: brightness(1.1); background: var(--accent-solid); }
+.btn--primary:hover {
+  background: var(--action-hover);
+  border-color: var(--action-hover);
+}
 
 /* A button that reads as a link — used inside prose in the stats panel. */
 .linkish {
@@ -564,12 +643,35 @@ code {
   white-space: nowrap;
 }
 .tag--tod { border: 1px solid var(--line-strong); background: transparent; }
+
+/* Time-of-day bands. The hue rides the border, the wash and the glyph — the
+   label text stays in ink, because a coloured word is harder to read than a
+   coloured mark sitting next to a legible one. `Anytime` and anything
+   unrecognised keep the neutral treatment above. */
+.tag--day   { border-color: var(--day);   background: var(--day-wash); }
+.tag--night { border-color: var(--night); background: var(--night-wash); }
+.tag--day .tag__glyph   { color: var(--day); }
+.tag--night .tag__glyph { color: var(--night); }
+
 .tag--status {
   color: var(--ink-muted);
   background: transparent;
   border: 1px dashed var(--line-strong);
 }
 .tag__glyph { color: var(--ink-muted); font-size: 10px; margin-right: 3px; }
+
+/* Same band cue on the filter chips and the stats rows, so the colour means the
+   same thing everywhere it appears. Selection stays cyan across all filters —
+   that's "chosen", not "when". */
+/* The `:checked` rule further up recolours .chip__glyph, so these have to match
+   its specificity or a selected chip would lose its band colour. */
+.chip__face .chip__glyph--day,
+.chip__input:checked + .chip__face .chip__glyph--day,
+.bar__label .glyph--day { color: var(--day); }
+
+.chip__face .chip__glyph--night,
+.chip__input:checked + .chip__face .chip__glyph--night,
+.bar__label .glyph--night { color: var(--night); }
 
 .card__foot {
   display: flex;

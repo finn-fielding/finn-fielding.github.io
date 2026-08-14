@@ -8,6 +8,7 @@ import {
   fieldByKey,
   knownKeys,
   TIME_OF_DAY_GLYPH,
+  bandOf,
 } from './schema.js';
 
 /** Escape anything interpolated into markup. The data is trusted, but a set
@@ -107,7 +108,9 @@ const todChips = (list) =>
       const glyph = TIME_OF_DAY_GLYPH[v]
         ? `<span class="tag__glyph" aria-hidden="true">${esc(TIME_OF_DAY_GLYPH[v])}</span>`
         : '';
-      return `<li class="tag tag--tod">${glyph}${esc(v)}</li>`;
+      // Amber for daytime, violet for night, neutral for anything unbanded.
+      const band = bandOf(v);
+      return `<li class="tag tag--tod${band ? ` tag--${band}` : ''}">${glyph}${esc(v)}</li>`;
     })
     .join('');
 
@@ -302,17 +305,25 @@ export function renderStats(el, stats, { ratingMax = 10, energyMax = 10, caption
   const peak = Math.max(1, ...stats.byTimeOfDay.map((b) => b.count));
   const bars = stats.byTimeOfDay
     .map((b) => {
+      const band = bandOf(b.value);
       const glyph = TIME_OF_DAY_GLYPH[b.value]
-        ? `<span class="tag__glyph" aria-hidden="true">${esc(TIME_OF_DAY_GLYPH[b.value])}</span>`
+        ? `<span class="tag__glyph${band ? ` glyph--${band}` : ''}" aria-hidden="true">${
+            esc(TIME_OF_DAY_GLYPH[b.value])}</span>`
         : '';
-      const avg = b.avgRating == null ? 'unrated' : `avg ${b.avgRating.toFixed(1)}`;
+      // Both averages are named. An unlabelled "avg 8.7" is unreadable — there
+      // are two things here it could plausibly be averaging.
+      const figures = [
+        `${b.count} ${b.count === 1 ? 'set' : 'sets'}`,
+        b.avgRating == null ? 'unrated' : `avg rating ${b.avgRating.toFixed(1)}`,
+        b.avgEnergy == null ? null : `avg energy ${b.avgEnergy.toFixed(1)}`,
+      ].filter(Boolean);
       return `
         <li class="bar">
           <span class="bar__label">${glyph}${esc(b.value)}</span>
           <span class="bar__track">
             <span class="bar__fill" style="width:${((b.count / peak) * 100).toFixed(1)}%"></span>
           </span>
-          <span class="bar__val">${esc(b.count)} · ${esc(avg)}</span>
+          <span class="bar__val">${esc(figures.join(' · '))}</span>
         </li>`;
     })
     .join('');

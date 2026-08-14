@@ -20,7 +20,7 @@ import { normalise } from '../js/store.js';
 import {
   matches, compare, orderedFacet, activeFilters, clearAll, clearOne, valueList,
 } from '../js/filters.js';
-import { fieldByKey } from '../js/schema.js';
+import { fieldByKey, bandOf, TIME_OF_DAY_ORDER } from '../js/schema.js';
 import {
   formatDate, formatDuration, platformOf, renderGrid, renderStats, detailHTML,
 } from '../js/render.js';
@@ -293,6 +293,28 @@ check('a bucket with nothing rated reports null',
   computeStats([normalise({ id: 'z', setName: 'Z', timeOfDay: ['Sunset'] }, 0)])
     .byTimeOfDay[0].avgRating, null);
 
+// Rating and energy are averaged independently — Gamma has an energy but no
+// rating, so the two figures for Afternoon come from different set counts.
+check('per-bucket average energy',
+  st.byTimeOfDay.find((b) => b.value === 'Afternoon').avgEnergy, 3.5);
+check('per-bucket average rating is unaffected by the unrated set',
+  st.byTimeOfDay.find((b) => b.value === 'Afternoon').avgRating, 7);
+check('a bucket with no energy values reports null',
+  computeStats([normalise({ id: 'z', setName: 'Z', timeOfDay: ['Sunset'], rating: 5 }, 0)])
+    .byTimeOfDay[0].avgEnergy, null);
+
+// --- time-of-day colour bands ----------------------------------------------
+
+check('daytime periods band as day',
+  ['Sunrise', 'Morning', 'Afternoon'].map(bandOf), ['day', 'day', 'day']);
+check('evening and later band as night',
+  ['Sunset', 'Evening', 'Peak time', 'Late night', 'After hours'].map(bandOf),
+  ['night', 'night', 'night', 'night', 'night']);
+check('Anytime is deliberately unbanded', bandOf('Anytime'), '');
+check('an unrecognised period is unbanded rather than broken', bandOf('Brunch'), '');
+check('every documented period except Anytime has a band',
+  TIME_OF_DAY_ORDER.filter((v) => v !== 'Anytime' && !bandOf(v)), []);
+
 const repeated = [
   normalise({ id: 'r1', setName: 'One', artist: 'Fred again..', rating: 9 }, 0),
   normalise({ id: 'r2', setName: 'Two', artist: 'Fred again..', rating: 8 }, 1),
@@ -335,6 +357,16 @@ check('the meter states the value as text too',
 check('every card can be opened', count(gridStub.innerHTML, /data-open=/g), 3);
 check('status appears on the card', gridStub.innerHTML.includes('Sampled'), true);
 
+// Band classes are what carry amber vs violet in the CSS.
+check('a daytime chip is banded as day', gridStub.innerHTML.includes('tag--day'), true);
+check('Anytime stays neutral — no band class beyond tag--tod',
+  gridStub.innerHTML.includes('tag--night'), false);
+
+const nightStub = { innerHTML: '' };
+renderGrid(nightStub, [normalise(
+  { id: 'n', setName: 'N', timeOfDay: ['Late night'], rating: 8, energy: 9 }, 0)]);
+check('a late-night chip is banded as night', nightStub.innerHTML.includes('tag--night'), true);
+
 // An apostrophe in a set name must not break out of the attribute or element.
 const risky = [normalise({ id: 'x', setName: `Maka's "Birthday" & <b>Rome</b>`, rating: 5 }, 0)];
 renderGrid(gridStub, risky);
@@ -349,6 +381,14 @@ check('the stats panel shows its caption',
 check('one bar per time of day', count(statsStub.innerHTML, /class="bar"/g), 3);
 check('the average rating is shown', statsStub.innerHTML.includes('8.0'), true);
 check('bar widths are percentages', statsStub.innerHTML.includes('width:100.0%'), true);
+
+// The bug this replaced: rows read "3 · avg 8.7" with no way to tell which
+// average it was. Both are now named, and a bare "avg <number>" must not appear.
+check('bar rows name the rating average', statsStub.innerHTML.includes('avg rating'), true);
+check('bar rows name the energy average', statsStub.innerHTML.includes('avg energy'), true);
+check('no unlabelled average survives', /avg \d/.test(statsStub.innerHTML), false);
+check('bar rows count their sets', statsStub.innerHTML.includes('2 sets'), true);
+check('a single set is not called "1 sets"', statsStub.innerHTML.includes('1 set ·'), true);
 
 renderStats(statsStub, computeStats([]), {});
 check('the stats panel hides when nothing matches', statsStub.hidden, true);

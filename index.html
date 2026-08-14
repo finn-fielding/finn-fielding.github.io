@@ -1,12 +1,29 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Set Ranker — DJ sets, ranked</title>
 <meta name="description" content="A ranked, filterable catalogue of DJ sets — by energy, time of day and overall rating. Every set links out so you can go and hear it.">
-<meta name="color-scheme" content="light dark">
+<meta name="color-scheme" content="dark light">
+<meta name="theme-color" content="#0a0c14">
 <link rel="canonical" href="https://finn-fielding.github.io/set-ranker/">
+
+<!-- Runs before the page paints, so someone who chose the light theme doesn't
+     see a flash of dark on every load. Kept tiny and inline for that reason —
+     an external file would be fetched too late to help. The key must match
+     THEME_KEY in js/main.js. -->
+<script>
+  (function () {
+    try {
+      var saved = localStorage.getItem('set-ranker-theme');
+      document.documentElement.dataset.theme =
+        (saved === 'light' || saved === 'dark' || saved === 'auto') ? saved : 'dark';
+    } catch (e) {
+      document.documentElement.dataset.theme = 'dark';
+    }
+  })();
+</script>
 
 <!-- Link previews. These are what make the site unfurl with a title, blurb and
      image when the URL is pasted into Slack, iMessage, WhatsApp or Discord
