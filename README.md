@@ -290,19 +290,19 @@ otherwise it couldn't narrow anything down.
 
 ## Publishing it
 
-Not published yet — this is running locally only, and nothing has been committed.
+Live at **https://finn-fielding.github.io** — served from this repo, which is named
+`finn-fielding.github.io` so GitHub Pages puts it at the domain root with no path.
 
-When you're ready, remembering that **everything in `sets.json` becomes
-world-readable**, including your descriptions:
+Every change goes out with:
 
 ```sh
-git add -A && git commit -m "Set Ranker"
-gh repo create set-ranker --public --source=. --push
+git add -A && git commit -m "Update sets" && git push
 ```
 
-Then in the repo's Settings → Pages, set the source to the `main` branch, root
-folder. The site appears at `https://finn-fielding.github.io/set-ranker/` within a
-minute or two. Every later change is `git add`, `git commit`, `git push`.
+It's live about a minute later. `./refresh.sh` prints this reminder when it finishes.
+
+Remember that **everything in `sets.json` is world-readable**, including your
+descriptions and big-moment notes.
 
 Because there's no build step, what you see locally is exactly what gets served.
 
@@ -320,9 +320,13 @@ js/stats.js                   the summary arithmetic behind the stats panel
 js/render.js                  cards, detail view, stats panel, chips
 js/main.js                    wiring, and keeping filters and the open set in the URL
 data/sets.json                your sets
-og.png                        the link-preview image
+og.png                        the link-preview image (Slack, iMessage, etc.)
+favicon.svg, icon-*.png       tab, bookmark, Dock and home-screen icons
+apple-touch-icon.png          iOS home screen
+manifest.webmanifest          lets Safari 'Add to Dock' show a proper name and icon
 tools/import_notion_csv.py    Notion CSV -> sets.json
 tools/make_og_image.py        regenerates og.png
+tools/make_icons.py           regenerates the icons
 tools/validate_data.py        checks sets.json for mistakes
 tools/schema_reader.py        lets the Python tools read schema.js
 tools/test_logic.js           tests for filtering and sorting
