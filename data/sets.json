@@ -100,7 +100,7 @@
     "setName": "FIFI (DJ Set) - Elevator Music",
     "artist": "Fifi",
     "rating": 8,
-    "energy": null,
+    "energy": 7,
     "timeOfDay": [
       "Afternoon"
     ],
@@ -122,7 +122,135 @@
     "description": "",
     "bestMoments": "",
     "referredBy": "",
-    "date": "",
+    "date": "2026-08-13",
     "url": "https://www.youtube.com/watch?v=j9EkAYdouyM"
+  },
+  {
+    "id": "u-uk-uk1mat-u-u-uk-uk1mat-u-100-the-prodigy-mix",
+    "setName": "¥ØU$UK€ ¥UK1MAT$U: 100% The Prodigy Mix",
+    "artist": "¥ØU$UK€ ¥UK1MAT$U",
+    "rating": 7,
+    "energy": 7,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "Solid standard techno work energy-wise, with his signature style. Awesome for locking in on any task",
+    "bestMoments": "Choppy beats at ~44:00",
+    "referredBy": "",
+    "date": "2026-08-16",
+    "url": "https://www.nts.live/shows/guests/episodes/yousuke-yukimatsu-14th-august-2026"
+  },
+  {
+    "id": "tim-reaper-tim-reaper-w-fracture-blackeye",
+    "setName": "Tim Reaper w/ Fracture & Blackeye",
+    "artist": "Tim Reaper",
+    "rating": 2,
+    "energy": 6,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Sampled",
+    "description": "I liked all of the callouts in this one at the start, definitely makes it feel like radio which is a certain vibe but if you’re in the mood it can work, and provides a continuous solid beat, but it was too much. Wish the music could speak more for itself",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-08-17",
+    "url": "https://www.nts.live/shows/tim-reaper/episodes/tim-reaper-fracture-blackeye-24th-september-2025"
+  },
+  {
+    "id": "zack-fox-zack-fox-boiler-room-new-york",
+    "setName": "Zack Fox | Boiler Room: New York",
+    "artist": "Zack Fox",
+    "rating": 8,
+    "energy": 7,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "Nice balance, some lower energy and higher and VERY high energy moments",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-08-17",
+    "url": "https://www.youtube.com/watch?v=MieRtF-IpQA&t=1347s"
+  },
+  {
+    "id": "barry-can-t-swim-barry-can-t-swim-dj-set-brooklyn-nyc-20th-j",
+    "setName": "Barry Can’t Swim DJ Set (Brooklyn, NYC - 20th June 2026)",
+    "artist": "Barry Can't Swim",
+    "rating": 8,
+    "energy": 6,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Groovy as all hell.",
+    "bestMoments": "Kimbara at ~30:00, Daft Punk at ~1:12:00",
+    "referredBy": "",
+    "date": "2026-08-18",
+    "url": "https://www.youtube.com/watch?v=01qjuSpFUY0"
+  },
+  {
+    "id": "zack-fox-zack-fox-dj-set-elevator-music",
+    "setName": "Zack Fox (DJ Set) - Elevator Music",
+    "artist": "Zack Fox",
+    "rating": 7,
+    "energy": 7,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-08-18",
+    "url": "https://www.youtube.com/watch?v=iVZkcDOal7w"
+  },
+  {
+    "id": "fred-again-thomas-bangalter-fred-again-thomas-bangalter-usb0",
+    "setName": "Fred again.. & Thomas Bangalter (USB002, Alexandra Palace, London 27 February 2026)",
+    "artist": "Fred again.., Thomas Bangalter",
+    "rating": 9,
+    "energy": 8,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Absolute all time intro",
+    "bestMoments": "1:06 INSANE double drops",
+    "referredBy": "",
+    "date": "2026-08-18",
+    "url": "https://www.youtube.com/watch?v=gfF8jzBVWvM"
+  },
+  {
+    "id": "chris-luno-berlin-deep-house-mix",
+    "setName": "berlin deep house mix",
+    "artist": "Chris Luno",
+    "rating": 8,
+    "energy": 6,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Great for chill vibes, but can be higher energy if you need it to be. Super balanced all around set!",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-08-19",
+    "url": "https://www.youtube.com/watch?v=Jq8Ld58_rGo&t=3886s"
+  },
+  {
+    "id": "nick-cheo-nick-cheo-dj-set-elevator-music",
+    "setName": "Nick Cheo (DJ Set) - Elevator Music",
+    "artist": "Nick Cheo",
+    "rating": 7,
+    "energy": 7,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "Some good popular tunes mixed in here - like a super up-leveled version of a bedroom DJ set",
+    "bestMoments": "Piano in first ~10:00, beat switch at ~41:00",
+    "referredBy": "",
+    "date": "2026-08-20",
+    "url": "https://www.youtube.com/watch?v=h0BCyYQ9ZzU"
   }
 ]
