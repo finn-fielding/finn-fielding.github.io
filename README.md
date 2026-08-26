@@ -124,7 +124,7 @@ These mirror the Notion "Sets Tracker" board, as imported on 13 Aug 2026.
 | Rating | `Rating` | 0–10 | the big number; sort, minimum-rating slider |
 | Energy | `Energy Level` | 1–10 | segmented meter; sort, filter by level |
 | Time of day | `Time of Day` | list | chip filter, ordered through the day |
-| Status | `Status` | one value | chip filter (`Listened` / `Sampled`) |
+| Status | `Status` | one value | chip filter (`Listened` / `Sampled` / `Haven't Listened`) |
 | Description | `Description` | paragraph | search; shown in the detail view |
 | Big moments | `Big Moments?` | paragraph | search; shown in the detail view |
 | Referred by | `Referred By` | text | dropdown filter — currently empty on every set, so no filter appears until you fill some in |
