@@ -149,12 +149,17 @@ before this site existed. When you want the site to catch up:
 ./refresh.sh
 ```
 
-That finds the newest export in your Downloads folder, unpacks it, replaces the
-site's data, and checks it for problems. Refresh the browser and you're done.
+That finds the newest export in your **Downloads or Desktop** folder, unpacks it,
+replaces the site's data, and checks it for problems. Refresh the browser and
+you're done.
 
 It picks the export automatically, so you don't have to find or unzip anything. If
 you'd rather point it at a specific file, `./refresh.sh path/to/export.zip` works
 too.
+
+It only auto-picks a zip it can tell is a Sets Tracker export. If it has to fall
+back to "some zip containing a CSV" it says so loudly, because unrelated CSV
+exports in those folders would otherwise get imported over your set data.
 
 **The site does not update itself.** It shows whatever your last `./refresh.sh`
 captured. Add a set in Notion and the site won't know until you run it again. That

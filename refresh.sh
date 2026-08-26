@@ -1,7 +1,7 @@
 #!/bin/sh
 # Pull the latest Notion export into the site.
 #
-#   ./refresh.sh                     find the newest export in ~/Downloads
+#   ./refresh.sh                     find the newest export in ~/Downloads or ~/Desktop
 #   ./refresh.sh path/to/export.zip  use a specific zip
 #   ./refresh.sh path/to/sets.csv    use a specific CSV
 #
@@ -16,7 +16,10 @@
 set -e
 cd "$(dirname "$0")"
 
+# Both are searched, newest first, because exports land in either depending on
+# where the browser was last told to put them.
 DOWNLOADS="$HOME/Downloads"
+DESKTOP="$HOME/Desktop"
 INPUT="$1"
 
 work=$(mktemp -d)
@@ -24,22 +27,44 @@ trap 'rm -rf "$work"' EXIT INT TERM
 
 # --- find an export -------------------------------------------------------
 
-if [ -z "$INPUT" ]; then
-  INPUT=$(ls -t "$DOWNLOADS"/*.zip 2>/dev/null | while read -r candidate; do
-    if unzip -l "$candidate" 2>/dev/null | grep -qE 'ExportBlock|\.csv'; then
+# Newest zip, across both folders, whose contents match $1.
+find_export() {
+  ls -t "$DOWNLOADS"/*.zip "$DESKTOP"/*.zip 2>/dev/null | while read -r candidate; do
+    if unzip -l "$candidate" 2>/dev/null | grep -qE "$1"; then
       echo "$candidate"
       break
     fi
-  done)
+  done
+}
+
+if [ -z "$INPUT" ]; then
+  # Prefer something that is provably a Sets Tracker export. Matching any zip
+  # that merely contains a CSV is too loose — there are unrelated CSV exports
+  # floating around, and picking one would overwrite the set data with nonsense.
+  INPUT=$(find_export 'Sets Tracker|ExportBlock')
+  CERTAIN=yes
 
   if [ -z "$INPUT" ]; then
-    echo "Couldn't find a Notion export in $DOWNLOADS"
+    INPUT=$(find_export '\.csv')
+    CERTAIN=no
+  fi
+
+  if [ -z "$INPUT" ]; then
+    echo "Couldn't find a Notion export in $DOWNLOADS or $DESKTOP"
     echo
     echo "In Notion: open the Sets Tracker board, then the ... menu at the top"
     echo "right, Export, and choose 'Markdown & CSV'. Then run this again."
     exit 1
   fi
-  echo "Using the newest export found: $(basename "$INPUT")"
+
+  echo "Using: $INPUT"
+  if [ "$CERTAIN" = no ]; then
+    echo
+    echo "WARNING: that zip contains a CSV but doesn't look like a Notion export"
+    echo "of the Sets Tracker board. Check the row count and column names in the"
+    echo "report below before trusting it. Your previous data is backed up to"
+    echo "data/sets.json.bak either way."
+  fi
 fi
 
 if [ ! -f "$INPUT" ]; then
