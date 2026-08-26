@@ -129,7 +129,7 @@
     "id": "u-uk-uk1mat-u-u-uk-uk1mat-u-100-the-prodigy-mix",
     "setName": "¥ØU$UK€ ¥UK1MAT$U: 100% The Prodigy Mix",
     "artist": "¥ØU$UK€ ¥UK1MAT$U",
-    "rating": 7,
+    "rating": 6,
     "energy": 7,
     "timeOfDay": [
       "Afternoon"
@@ -209,14 +209,14 @@
     "id": "fred-again-thomas-bangalter-fred-again-thomas-bangalter-usb0",
     "setName": "Fred again.. & Thomas Bangalter (USB002, Alexandra Palace, London 27 February 2026)",
     "artist": "Fred again.., Thomas Bangalter",
-    "rating": 9,
+    "rating": 10,
     "energy": 8,
     "timeOfDay": [
       "Anytime"
     ],
     "status": "Listened",
     "description": "Absolute all time intro",
-    "bestMoments": "1:06 INSANE double drops",
+    "bestMoments": "1:06 INSANE double drops, 1:10 Leavemealone, 1:20 music sounds better with you, 1:45 Just Stand There",
     "referredBy": "",
     "date": "2026-08-18",
     "url": "https://www.youtube.com/watch?v=gfF8jzBVWvM"
@@ -252,5 +252,37 @@
     "referredBy": "",
     "date": "2026-08-20",
     "url": "https://www.youtube.com/watch?v=h0BCyYQ9ZzU"
+  },
+  {
+    "id": "v-a-l-ben-bohmer-rufus-du-sol-adriatique-sunset-mix-in-the-f",
+    "setName": "Ben Böhmer, RÜFÜS DU SOL, Adriatique | Sunset Mix in the French Alps | by V.A.L for RESONANCE",
+    "artist": "V.A.L",
+    "rating": 7,
+    "energy": 2,
+    "timeOfDay": [
+      "Morning"
+    ],
+    "status": "Sampled",
+    "description": "Really beautiful scenery and smooth mixes - nothing groundbreaking here but one of the best morning mixes I’ve heard in a while",
+    "bestMoments": "Inception song (”Time”) in first ~15 mins",
+    "referredBy": "",
+    "date": "2026-08-24",
+    "url": "https://www.youtube.com/watch?v=VuwzBPrA2Bk"
+  },
+  {
+    "id": "notion-notion-ukg-and-bassline-set-live-from-dj-mag-hq",
+    "setName": "Notion UKG And Bassline Set Live From DJ Mag HQ",
+    "artist": "Notion",
+    "rating": 6,
+    "energy": 7,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "To be honest could have rated higher because the music was 7-8 level - mixing didn’t really impress me that much though",
+    "bestMoments": "Drop at ~55",
+    "referredBy": "",
+    "date": "2026-08-25",
+    "url": "https://www.youtube.com/watch?v=udE4hBAyz2U"
   }
 ]
