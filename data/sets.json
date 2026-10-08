@@ -369,7 +369,7 @@
     "id": "chris-luno-berlin-deep-house-mix-2",
     "setName": "berlin deep house mix",
     "artist": "Chris Luno",
-    "rating": 7,
+    "rating": 8,
     "energy": 5,
     "timeOfDay": [
       "Morning"
@@ -417,16 +417,192 @@
     "id": "conducta-conducta-mixmag-lab-london",
     "setName": "Conducta | Mixmag Lab London",
     "artist": "Conducta",
-    "rating": null,
+    "rating": 7,
     "energy": 7,
     "timeOfDay": [
       "Afternoon"
     ],
-    "status": "Sampled",
+    "status": "Listened",
     "description": "Pretty high energy, almost MPH-like UK garage mixing",
-    "bestMoments": "Right at the start, great drop into the high energy part of the set",
+    "bestMoments": "Right at the start, great drop into the high energy part of the set; good grooving around ~29:00; ~44:00 is hype asf",
     "referredBy": "",
     "date": "2026-09-04",
     "url": "https://www.youtube.com/watch?v=T4FZxTFY_ek"
+  },
+  {
+    "id": "chris-luno-playing-vibey-tunes-on-the-highway",
+    "setName": "playing vibey tunes on the highway",
+    "artist": "Chris Luno",
+    "rating": 5,
+    "energy": 4,
+    "timeOfDay": [
+      "Morning"
+    ],
+    "status": "Listened",
+    "description": "Good vibes being in the car, clean mixes, good for work; nothing extraordinary here",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-09-09",
+    "url": "https://www.youtube.com/watch?v=6axNmn5Yqak"
+  },
+  {
+    "id": "sammy-virji-sammy-virji-boiler-room-denver",
+    "setName": "Sammy Virji | Boiler Room: Denver",
+    "artist": "Sammy Virji",
+    "rating": 7,
+    "energy": 8,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "High energy from literally the first minute - really awesome UKG set. Would be closer to an 8 ranking but there are lulls here and there",
+    "bestMoments": "29:30 sick build and drop; 43:00 awesome Damager drop",
+    "referredBy": "",
+    "date": "2026-09-04",
+    "url": "https://www.youtube.com/watch?v=6zPr1rk0Ans"
+  },
+  {
+    "id": "rufus-du-sol-rufus-du-sol-dj-set-mayan-warrior-burning-man-2",
+    "setName": "RÜFÜS DU SOL (DJ SET) - Mayan Warrior - Burning Man 2024",
+    "artist": "RÜFÜS DU SOL",
+    "rating": 8,
+    "energy": 4,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Might be the ultimate Rufus set between the music and visuals from Burning Man",
+    "bestMoments": "~1 hr 25 mins - Awesome build and drop for Innerbloom",
+    "referredBy": "",
+    "date": "2026-09-15",
+    "url": "https://www.youtube.com/watch?v=eQ-OVsdK-hM"
+  },
+  {
+    "id": "kettama-arc-on-the-river-kettama",
+    "setName": "ARC On The River: KETTAMA",
+    "artist": "Kettama",
+    "rating": 6,
+    "energy": 6,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Pretty standard Kettama fare here, no crazy mixing - so if you like him you’ll like this!",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-09-16",
+    "url": "https://www.youtube.com/watch?v=eIJIqLkVLZE&t=5557s"
+  },
+  {
+    "id": "riordan-riordan-boiler-room-london",
+    "setName": "Riordan | Boiler Room: London",
+    "artist": "Riordan",
+    "rating": 5,
+    "energy": 6,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "This one really picked up steam towards the end in the last ~15 mins with some of his bigger tracks - decent but probably not one I will be revisiting often",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-09-17",
+    "url": "https://www.youtube.com/watch?v=iyTRz9JpYmE"
+  },
+  {
+    "id": "mph-mph-live-in-hollywood",
+    "setName": "MPH | Live In Hollywood",
+    "artist": "MPH",
+    "rating": null,
+    "energy": null,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-09-18",
+    "url": "https://www.youtube.com/watch?v=CCmm6IUMmlQ"
+  },
+  {
+    "id": "chris-luno-pool-party-house-mix",
+    "setName": "pool party house mix",
+    "artist": "Chris Luno",
+    "rating": 6,
+    "energy": null,
+    "timeOfDay": [
+      "Morning"
+    ],
+    "status": "Listened",
+    "description": "I will probably rate most Chris Luno destination-type sets either a 6 or a 7 - always good vibes and fairly chill with smooth mixing. If a Luno set gets an 8, I think it means he either really controls the energy very well or is doing very technical transitions",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-09-18",
+    "url": "https://www.youtube.com/watch?v=6bjiutb05OM"
+  },
+  {
+    "id": "barry-can-t-swim-tuesday-night-at-the-snooker-club-barry-can",
+    "setName": "Tuesday night at the snooker club… (Barry Can’t Swim, September 2026)",
+    "artist": "Barry Can't Swim",
+    "rating": 8,
+    "energy": 3,
+    "timeOfDay": [
+      "Morning"
+    ],
+    "status": "Listened",
+    "description": "Mad chill! Fits so well with the setting. Almost like chill trance. Hour went by in what felt like 5 minutes",
+    "bestMoments": "51:00 great closeout",
+    "referredBy": "",
+    "date": "2026-09-21",
+    "url": "https://www.youtube.com/watch?v=py9BXXNxjUI"
+  },
+  {
+    "id": "hamdi-hamdi-knockdown-center-hamdi-fc-vs-new-york",
+    "setName": "HAMDI @ KNOCKDOWN CENTER | HAMDI FC vs NEW YORK",
+    "artist": "Hamdi",
+    "rating": 8,
+    "energy": 8,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "Hamdi has such a nice mix of house and hard bass/dubstep, and this set is no exception (bonus points for folding in the Damager VIP x Sammy Virji and some crafty Victory Lap flips). TONS of good remixes here",
+    "bestMoments": "~40:00 approx 4 mins of sick victory lap edits",
+    "referredBy": "",
+    "date": "2026-09-23",
+    "url": "https://www.youtube.com/watch?v=WTUDWtzLy3U"
+  },
+  {
+    "id": "dj-boring-salute-dj-boring-b2b-salute-boiler-room-x-ava-fest",
+    "setName": "DJ BORING b2b salute | Boiler Room x AVA Festival 2024",
+    "artist": "DJ Boring, Salute",
+    "rating": 7,
+    "energy": 7,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "One of the better lock in/get work done sets I’ve ever listened to! Also, the way Salute like sways and headbangs is very satisfying, I can’t explain why but I love it. Lots of fun drops here",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-09-25",
+    "url": "https://www.youtube.com/watch?v=q3l5v6Kq9Zc"
+  },
+  {
+    "id": "mph-mph-kindred-radio",
+    "setName": "MPH | Kindred Radio",
+    "artist": "MPH",
+    "rating": null,
+    "energy": null,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Very long build-up, which helps this one be more broadly applicable (MPH is normally all high energy, meaning not really good for morning/late night).",
+    "bestMoments": "Kicks into higher gear around ~40:00",
+    "referredBy": "",
+    "date": "2026-10-07",
+    "url": "https://www.youtube.com/watch?v=jTqjB5dYIMY"
   }
 ]
