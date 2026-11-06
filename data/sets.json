@@ -593,16 +593,112 @@
     "id": "mph-mph-kindred-radio",
     "setName": "MPH | Kindred Radio",
     "artist": "MPH",
-    "rating": null,
-    "energy": null,
+    "rating": 6,
+    "energy": 6,
     "timeOfDay": [
       "Anytime"
     ],
     "status": "Listened",
-    "description": "Very long build-up, which helps this one be more broadly applicable (MPH is normally all high energy, meaning not really good for morning/late night).",
+    "description": "Very long build-up, which helps this one be more broadly applicable (MPH is normally all high energy, meaning not really good for morning/late night). Not insanely high energy over all, but great work set",
     "bestMoments": "Kicks into higher gear around ~40:00",
     "referredBy": "",
     "date": "2026-10-07",
     "url": "https://www.youtube.com/watch?v=jTqjB5dYIMY"
+  },
+  {
+    "id": "disclosure-disclosure-dj-set-london-kindred-radio",
+    "setName": "Disclosure DJ Set - London // Kindred Radio",
+    "artist": "Disclosure",
+    "rating": 6,
+    "energy": 7,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "",
+    "bestMoments": "~46:00 Hollaback girl remix BANGS",
+    "referredBy": "",
+    "date": "2026-10-09",
+    "url": "https://www.youtube.com/watch?v=8-5q-VukwZw"
+  },
+  {
+    "id": "mall-grab-mall-grab-at-909-festival-2024-full-set",
+    "setName": "MALL GRAB AT 909 FESTIVAL 2024 (FULL SET)",
+    "artist": "Mall Grab",
+    "rating": 6,
+    "energy": 6,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Good work lock in music. Mall Grab also just has such good DJ vibes/energy, I can’t fully put my finger on it",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-10-14",
+    "url": "https://www.youtube.com/watch?v=ZTtVzjRphqc"
+  },
+  {
+    "id": "twofaced-twofaced-live-the-block-dublin",
+    "setName": "TWOFACED | Live | The Block, Dublin",
+    "artist": "TWOFACED",
+    "rating": 7,
+    "energy": 7,
+    "timeOfDay": [
+      "Night"
+    ],
+    "status": "Listened",
+    "description": "One of the better trance sets I have ever heard - heavy bass, heavy synths",
+    "bestMoments": "“I Need You” at ~1:52",
+    "referredBy": "",
+    "date": "2026-10-23",
+    "url": "https://www.youtube.com/watch?v=Fxu7MYFVnAY"
+  },
+  {
+    "id": "twofaced-twofaced-100-production-set-live-from-dj-mag-hq",
+    "setName": "TWOFACED 100% Production Set Live From DJ Mag HQ",
+    "artist": "TWOFACED",
+    "rating": 7,
+    "energy": 6,
+    "timeOfDay": [
+      "Afternoon"
+    ],
+    "status": "Listened",
+    "description": "Would have rated this higher if it was the first TWOFACED set I had listened to, because it’s very good - but I think the boys have been more creative in other appearances!",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-10-16",
+    "url": "https://www.youtube.com/watch?v=TuUmJpc1fEk"
+  },
+  {
+    "id": "kettama-ra-live-kettama-district-x-2024",
+    "setName": "RA Live: KETTAMA @ District X 2024",
+    "artist": "Kettama",
+    "rating": 8,
+    "energy": 7,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Listened",
+    "description": "Possibly my favorite Kettama set OAT - really good tension building on the front end, surprise Chris Stassy cameo, and great energetic trance",
+    "bestMoments": "First 5-10 mins",
+    "referredBy": "",
+    "date": "2026-10-27",
+    "url": "https://www.youtube.com/watch?v=qzOmDh5yxdY"
+  },
+  {
+    "id": "twofaced-twofaced-dj-set-index-dublin",
+    "setName": "TWOFACED DJ Set | Index, Dublin",
+    "artist": "TWOFACED",
+    "rating": 8,
+    "energy": 7,
+    "timeOfDay": [
+      "Anytime"
+    ],
+    "status": "Sampled",
+    "description": "Great energy control, these guys make a 2 hour set feel short",
+    "bestMoments": "1:10, 1:45 (I Need You)",
+    "referredBy": "",
+    "date": "2026-11-06",
+    "url": "https://www.youtube.com/watch?v=NOnfyCRNYJA"
   }
 ]
