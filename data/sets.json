@@ -513,13 +513,13 @@
     "id": "mph-mph-live-in-hollywood",
     "setName": "MPH | Live In Hollywood",
     "artist": "MPH",
-    "rating": null,
-    "energy": null,
+    "rating": 6,
+    "energy": 7,
     "timeOfDay": [
       "Afternoon"
     ],
     "status": "Listened",
-    "description": "",
+    "description": "Pretty boilerplate MPH - which is to say great! Just not extraordinary",
     "bestMoments": "",
     "referredBy": "",
     "date": "2026-09-18",
@@ -530,7 +530,7 @@
     "setName": "pool party house mix",
     "artist": "Chris Luno",
     "rating": 6,
-    "energy": null,
+    "energy": 4,
     "timeOfDay": [
       "Morning"
     ],
@@ -700,5 +700,21 @@
     "referredBy": "",
     "date": "2026-11-06",
     "url": "https://www.youtube.com/watch?v=NOnfyCRNYJA"
+  },
+  {
+    "id": "mph-mph-mixmag-lab-london",
+    "setName": "MPH | Mixmag Lab London",
+    "artist": "MPH",
+    "rating": 8,
+    "energy": 8,
+    "timeOfDay": [
+      "Night"
+    ],
+    "status": "Haven't Listened",
+    "description": "MPH rips!",
+    "bestMoments": "",
+    "referredBy": "",
+    "date": "2026-11-18",
+    "url": "https://www.youtube.com/watch?v=CZc5Fz54dXc"
   }
 ]
